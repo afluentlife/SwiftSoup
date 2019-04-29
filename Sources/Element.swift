@@ -1211,19 +1211,15 @@ open class Element: Node {
         try attributes?.html(accum: accum, out: out)
 
         // selfclosing includes unknown tags, isEmpty defines tags that are always empty
-        if (childNodes.isEmpty && _tag.isSelfClosing()) {
-            if (out.syntax() == OutputSettings.Syntax.html && _tag.isEmpty()) {
-                accum.append(">")
-            } else {
-                accum.append(" />") // <img> in html, <img /> in xml
-            }
+        if (_tag.isSelfClosing()) {
+            accum.append(" />") // <img> in html, <img /> in xml
         } else {
             accum.append(">")
         }
     }
 
     override func outerHtmlTail(_ accum: StringBuilder, _ depth: Int, _ out: OutputSettings) {
-        if (!(childNodes.isEmpty && _tag.isSelfClosing())) {
+        if (!_tag.isSelfClosing()) {
             if (out.prettyPrint() && (!childNodes.isEmpty && (
                 _tag.formatAsBlock() || (out.outline() && (childNodes.count>1 || (childNodes.count==1 && !(((childNodes[0] as? TextNode) != nil)))))
                 ))) {
