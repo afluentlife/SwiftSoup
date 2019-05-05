@@ -113,9 +113,10 @@ open class Attribute {
      * @return  Returns whether collapsible or not
      */
     public final func shouldCollapseAttribute(out: OutputSettings) -> Bool {
-        return ("" == value  || value.equalsIgnoreCase(string: key))
-            && out.syntax() == OutputSettings.Syntax.html
-            && isBooleanAttribute()
+        return false // No xml attributes should be collapsed
+        // ("" == value  || value.equalsIgnoreCase(string: key))
+        //     && out.syntax() == OutputSettings.Syntax.html
+        //     && isBooleanAttribute()
     }
 
     public func isBooleanAttribute() -> Bool {
